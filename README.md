@@ -83,6 +83,63 @@ CRC1 CRC2 → Error check (Cyclic Redundancy Check)
 
 ---
 
+
+## 🧮 Endianness: Little vs. Big Endian
+
+When working with **multi-byte values** (like 16-bit or 32-bit integers), the **byte order** becomes important. This is known as **endianness**.
+
+### 🔁 What is Endianness?
+
+Endianness determines how bytes are **ordered in memory** or during **data transmission**.
+
+### 🧷 Big Endian
+
+- The **most significant byte (MSB)** comes **first** (lowest memory address).
+- Common in networking protocols.
+
+**Example**:  
+A 16-bit value `0x1234` is stored as:  
+`12 34` (MSB → LSB)
+
+### 🪃 Little Endian
+
+- The **least significant byte (LSB)** comes **first**.
+- Used by most Intel processors and some Modbus devices.
+
+**Example**:  
+A 16-bit value `0x1234` is stored as:  
+`34 12` (LSB → MSB)
+
+---
+
+### ⚙️ Endianness in Modbus
+
+Modbus itself is **byte-oriented**, but how **multi-byte registers** are handled depends on the **device manufacturer**.
+
+A 32-bit value split across two 16-bit Modbus registers might be:
+
+| Register Address | Big Endian (Motor A) | Little Endian (Motor B) |
+|------------------|----------------------|--------------------------|
+| 40001            | 0x12                 | 0x78                     |
+| 40002            | 0x34                 | 0x56                     |
+| Combined Value   | `0x12345678`         | `0x78563412`             |
+
+### 🧪 How to Handle in Code
+
+Always **check your device documentation**. If needed, you may need to **swap** the bytes manually:
+
+``` HMI Example 
+
+Modbus devices setting should match the setting on the HMI to read and write values correctly. 
+
+--- Applied Motion Products MDX+ Modbus setting using Luna software
+![image](https://github.com/user-attachments/assets/3c81034e-550d-4e40-95a4-9ed7a4cbfff4)
+
+--- HMI Modbus Settings
+![image](https://github.com/user-attachments/assets/d4745a24-618b-4ebe-9d1b-08a13c71cae6)
+
+
+
 ## 🔒 Security Notice
 
 Modbus does **not** include built-in encryption or authentication. Use with caution over unsecured networks or consider using Modbus over a secure VPN or with industrial firewalls.
