@@ -128,7 +128,7 @@ A 32-bit value split across two 16-bit Modbus registers might be:
 
 Always **check your device documentation**. If needed, you may need to **swap** the bytes manually:
 
-``` HMI Example 
+HMI Example 
 
 Modbus devices setting should match the setting on the HMI to read and write values correctly. 
 
@@ -138,7 +138,7 @@ Modbus devices setting should match the setting on the HMI to read and write val
 --- HMI Modbus Settings
 ![image](https://github.com/user-attachments/assets/d4745a24-618b-4ebe-9d1b-08a13c71cae6)
 
-
+---
 
 ## 🔒 Security Notice
 
